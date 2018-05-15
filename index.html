@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sortable Like Trello</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+</head>
+<style type="text/css">
+    body{
+        background: #fff;
+    }
+    .wrapper{
+        width: 80%;
+        margin:10px auto;
+    }
+</style>
+<body>
+<div class="wrapper">
+<div id="items" class="row">
+<div id="group1" class="group col s4">
+<h1>Naruto</h1>
+<div class="group-items collection">
+<li class="collection-item">Kakashi</li>
+<li class="collection-item">Shikamaru</li>
+<li class="collection-item">Sasuke</li>
+</div>
+</div>
+<div id="group2" class="group col s4">
+<h1>Dragon Ball</h1>
+<div class="group-items collection">
+<li class="collection-item">Goku</li>
+<li class="collection-item">Gohan</li>
+<li class="collection-item">Goten</li>
+</div>
+</div>
+<div id="group3" class="group col s4">
+<h1>One Piece</h1>
+<div class="group-items collection">
+<li class="collection-item">Luffy</li>
+<li class="collection-item">Sanji</li>
+<li class="collection-item">Zorro</li>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript" src="node_modules/sortablejs/Sortable.min.js"></script>
+<script type="text/javascript">
+	var container = document.getElementById('items');
+	Sortable.create(container,{
+		handle:'h1',
+		draggable:'.group',
+		onUpdate: function(evt){
+			console.log(evt)
+		}
+	});
+
+	var group = document.getElementsByClassName('group-items');
+	for (var i = 0; i<group.length; i++) {
+		Sortable.create(group.item(i),{
+			group: 'item-list'
+		});
+	}
+	
+</script>
+</body>
+</html>
