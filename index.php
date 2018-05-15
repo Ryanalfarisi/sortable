@@ -64,7 +64,7 @@ while($row = $result->fetch_assoc()){
 			?>
 		</div>
 	</div>
-
+<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="node_modules/sortablejs/Sortable.min.js"></script>
 <script type="text/javascript">
 	var container = document.getElementById('items');
@@ -76,8 +76,19 @@ while($row = $result->fetch_assoc()){
 			var items 		= [];
 
 			for (var i = 0; i < children.length; i++) {
-				items.push(children[i].getAttribute('data-id'));
+				items.push(parseInt(children[i].getAttribute('data-id')));
 			}
+
+			//request ajax
+			data = {
+				action 	: "on_update",
+				type	: "groups",
+				items 	: items
+			};
+			$.post('update.php',data).done(function(data){
+				console.log(data)
+			});
+
 		}
 	});
 

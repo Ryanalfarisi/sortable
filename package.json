@@ -9,6 +9,7 @@
   "author": "alfarisi",
   "license": "ISC",
   "dependencies": {
+    "jquery": "^3.3.1",
     "sortablejs": "^1.7.0"
   }
 }
