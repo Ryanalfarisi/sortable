@@ -25,8 +25,11 @@ if($action == "on_update"){
 	$id_lists  	= implode(",",$items);
 	$sql 		= "UPDATE $column SET order_id = CASE $extra END WHERE id IN ($id_lists)";
 
-
+}else if($action == "on_add"){
+	$group_id 	= $_POST['group_id'];
+	$sql = "UPDATE $column SET group_id = $group_id WHERE id = $items";
 }
+
 if ($conn->query($sql)=== TRUE){
 	echo 'berhasil update';
 }else{

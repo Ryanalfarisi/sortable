@@ -49,7 +49,7 @@ while($row = $result->fetch_assoc()){
 					<div id="group1" class="group col s4" data-id="<?= $row['group_id'] ?>">
 						<h1><?= $row['group_id'] ?></h1>
 						<div class="group-items collection">
-							<li class="collection-item"><?= $row['title'] ?></li>
+							<li class="collection-item" data-id="<?= $row['group_id'] ?>"><?= $row['title'] ?></li>
 					
 				<? endif; ?>
 
@@ -72,9 +72,38 @@ while($row = $result->fetch_assoc()){
 		handle:'h1',
 		draggable:'.group',
 		onUpdate: function(evt){
-			var children  	= evt.from.children;
-			var items 		= [];
+			update_via_ajax(evt.from.children,'groups');
+			
+		}
+	});
 
+	var group = document.getElementsByClassName('group-items');
+	for (var i = 0; i<group.length; i++) {
+		Sortable.create(group.item(i),{
+			group: 'item-list'.
+			onUpdate:function(evt){
+				update_via_ajax(evt.from.children,'items');
+			},
+			onAdd:function(evt){
+				update_via_ajax(evt.item.parentElement.children,'items');
+
+				data = {
+					action 		: "on_add",
+					type		: "items",
+					items 		: parseInt(evt.item.getAttribute('data-id'));
+					group_id 	: parseInt(evt.item.parentElement.parentElement.getAttribute('data-id'));
+				};
+
+				$.post('update.php',data).done(function(data){
+					console.log(data)
+				});
+
+			}
+		});
+	}
+
+	function update_via_ajax(evt,type){
+			var items 		= [];
 			for (var i = 0; i < children.length; i++) {
 				items.push(parseInt(children[i].getAttribute('data-id')));
 			}
@@ -82,21 +111,12 @@ while($row = $result->fetch_assoc()){
 			//request ajax
 			data = {
 				action 	: "on_update",
-				type	: "groups",
+				type	: type,
 				items 	: items
 			};
 			$.post('update.php',data).done(function(data){
 				console.log(data)
 			});
-
-		}
-	});
-
-	var group = document.getElementsByClassName('group-items');
-	for (var i = 0; i<group.length; i++) {
-		Sortable.create(group.item(i),{
-			group: 'item-list'
-		});
 	}
 	
 </script>

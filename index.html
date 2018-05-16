@@ -44,21 +44,26 @@
 </div>
 <script type="text/javascript" src="node_modules/sortablejs/Sortable.min.js"></script>
 <script type="text/javascript">
-	var container = document.getElementById('items');
-	Sortable.create(container,{
-		handle:'h1',
-		draggable:'.group',
-		onUpdate: function(evt){
-			console.log(evt)
-		}
-	});
+	// var container = document.getElementById('items');
+	// Sortable.create(container,{
+	// 	handle:'h1',
+	// 	draggable:'.group',
+	// 	onUpdate: function(evt){
+	// 		console.log(evt)
+	// 	}
+	// });
 
-	var group = document.getElementsByClassName('group-items');
-	for (var i = 0; i<group.length; i++) {
-		Sortable.create(group.item(i),{
-			group: 'item-list'
-		});
-	}
+	// var group = document.getElementsByClassName('group-items');
+	// for (var i = 0; i<group.length; i++) {
+	// 	Sortable.create(group.item(i),{
+	// 		group: 'item-list',
+	// 		onAdd:function(evt){
+	// 			console.log()
+	// 			update_via_ajax(evt.item.parentElement.children,'items');
+
+	// 		}
+	// 	});
+	// }
 	
 </script>
 </body>
